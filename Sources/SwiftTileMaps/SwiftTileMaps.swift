@@ -1,0 +1,6 @@
+public struct SwiftTileMaps {
+    public private(set) var text = "Hello, World!"
+
+    public init() {
+    }
+}
