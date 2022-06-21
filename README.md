@@ -1,3 +1,3 @@
-# SwiftTileMaps
+# SwiftTileMatrix
 
 A description of this package.
