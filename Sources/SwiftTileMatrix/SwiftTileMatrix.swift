@@ -24,8 +24,12 @@ public func webMercatorScale(_ point: Point, zoom: Int, scale: Int = 2)->Float {
 }
 
 public func webMercatorToEpsg4236(_ pt: Point)->Point {
-  let scalar = Double.pi / 180 * earthRadius
-  return Point(x: pt.x/scalar, y: pt.y/scalar)
+  let d = -pt.y / earthRadius;
+  let phi = Double.pi / 2 - 2 * atan(exp(d));
+  let lambda = pt.x / earthRadius;
+  let lat = phi / Double.pi * 180;
+  let lon = lambda / Double.pi * 180;
+  return Point(x: lon, y: lat)
 }
 
 public extension CLLocationCoordinate2D {
