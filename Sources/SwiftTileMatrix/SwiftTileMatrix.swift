@@ -13,10 +13,10 @@ enum GeographyError: Error {
 
 public func webMercatorScale(zoom: Double, latitude: Double, tileSize: Double = 512)->Double {
   //meters per pixel
-  let prefix = gridSize / tileSize
-  let zoomTerm = pow(2,zoom)
-  let trigTerm = abs(cos(latitude * Double.pi/180))
-  return prefix * trigTerm / zoomTerm
+  let nTiles = pow(2,zoom)
+  let pixelsPerTile = tileSize
+  let metersPerTile = abs(cos(latitude * Double.pi/180)) * gridSize / nTiles
+  return metersPerTile / pixelsPerTile
 }
 
 public func webMercatorScale(_ point: Point, zoom: Int, scale: Int = 2)->Float {
