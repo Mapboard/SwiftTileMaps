@@ -98,3 +98,9 @@ public struct TileCoord {
     return _tileEnvelope(x: Double(x), y: Double(y), z: Double(z))
   }
 }
+
+extension TileCoord: CustomStringConvertible {
+  public var description: String {
+    "Tile x:\(self.x),y:\(self.y),z:\(self.z)"
+  }
+}
