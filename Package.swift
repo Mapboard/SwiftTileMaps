@@ -12,7 +12,7 @@ let package = Package(
             targets: ["SwiftTileMatrix"]),
     ],
     dependencies: [
-      .package(url: "https://github.com/GEOSwift/GEOSwift.git", from: "9.0.0"),
+      .package(url: "https://github.com/GEOSwift/GEOSwift.git", from: "10.0.0"),
 
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
