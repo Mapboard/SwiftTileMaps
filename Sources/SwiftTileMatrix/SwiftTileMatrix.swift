@@ -82,7 +82,7 @@ public struct TileCoord {
   
   public var center: CLLocationCoordinate2D {
     let cc = gridSize/2
-    let tileSizeMeters = gridSize/pow(2,Double(z))
+    let tileSizeMeters = gridSize/Double(tileCountAtZoomLevel)
     let cx = cc-tileSizeMeters*(Double(x)+0.5)
     let cy = cc-tileSizeMeters*(Double(y)+0.5)
     let scalar = Double.pi / 180 * earthRadius
@@ -96,6 +96,15 @@ public struct TileCoord {
   
   public var envelope: Envelope {
     return _tileEnvelope(x: Double(x), y: Double(y), z: Double(z))
+  }
+  
+  var tileCountAtZoomLevel: Int {
+    return Int(pow(2, Double(self.z)))
+  }
+  
+  public func flippedY() -> TileCoord {
+    let y = self.tileCountAtZoomLevel-y-1
+    return TileCoord(self.x, y, self.z)
   }
 }
 
