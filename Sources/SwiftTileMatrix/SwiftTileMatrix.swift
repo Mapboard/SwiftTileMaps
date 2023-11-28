@@ -37,6 +37,11 @@ public extension CLLocationCoordinate2D {
     let scalar = Double.pi / 180 * earthRadius
     self.init(latitude: pt.y/scalar, longitude: pt.x/scalar)
   }
+  
+  var webMercatorPoint: Point {
+    let scalar = Double.pi / 180 * earthRadius
+    return Point(x: self.longitude*scalar, y: self.latitude*scalar)
+  }
 }
 
 func tileEnvelope(x: Int, y: Int, z: Int) throws -> Envelope {
