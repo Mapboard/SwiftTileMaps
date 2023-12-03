@@ -7,6 +7,8 @@ private let latMax = 2*atan(exp(Double.pi))-Double.pi/2
 public let earthRadius: Double = 6378137
 let gridSize = 2*Double.pi*earthRadius
 
+public let webMercatorGridSize = 2*Double.pi*earthRadius
+
 enum GeographyError: Error {
   case invalidTileIndex(_ x: Int, _ y: Int, _ z: Int)
 }
