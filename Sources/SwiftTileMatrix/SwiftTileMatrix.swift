@@ -76,7 +76,7 @@ private func _tileEnvelope(x: Double, y: Double, z: Double) -> Envelope {
   return env
 }
 
-public struct TileCoord {
+public struct TileCoord: Hashable {
   public let x: Int
   public let y: Int
   public let z: Int
