@@ -1,5 +1,4 @@
 import Foundation
-import CoreLocation
 import GEOSwift
 
 private let latMax = 2*atan(exp(Double.pi))-Double.pi/2
@@ -32,18 +31,6 @@ public func webMercatorToEpsg4236(_ pt: Point)->Point {
   let lat = phi / Double.pi * 180;
   let lon = lambda / Double.pi * 180;
   return Point(x: lon, y: lat)
-}
-
-public extension CLLocationCoordinate2D {
-  init(webMercatorPoint pt: Point) {
-    let scalar = Double.pi / 180 * earthRadius
-    self.init(latitude: pt.y/scalar, longitude: pt.x/scalar)
-  }
-  
-  var webMercatorPoint: Point {
-    let scalar = Double.pi / 180 * earthRadius
-    return Point(x: self.longitude*scalar, y: self.latitude*scalar)
-  }
 }
 
 func tileEnvelope(x: Int, y: Int, z: Int) throws -> Envelope {
@@ -87,18 +74,18 @@ public struct TileCoord: Hashable {
     self.z = z
   }
   
-  public var center: CLLocationCoordinate2D {
+  public var centerGeographic: Point {
     let cc = gridSize/2
     let tileSizeMeters = gridSize/Double(tileCountAtZoomLevel)
     let cx = cc-tileSizeMeters*(Double(x)+0.5)
     let cy = cc-tileSizeMeters*(Double(y)+0.5)
     let scalar = Double.pi / 180 * earthRadius
-    return CLLocationCoordinate2D(latitude: cy/scalar, longitude: cx/scalar)
+    return Point(x: cx/scalar, y: cy/scalar)
   }
   
   public func estimatedPixelScale(tileSize: Double = 512)->Double {
     // meters per pixel at the center of the tile
-    return webMercatorScale(zoom: Double(self.z), latitude: self.center.latitude, tileSize: tileSize)
+    return webMercatorScale(zoom: Double(self.z), latitude: self.centerGeographic.y, tileSize: tileSize)
   }
   
   public var envelope: Envelope {
